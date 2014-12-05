@@ -1,0 +1,90 @@
+(function() {
+    'use strict';
+    angular
+    .module('SirTrevor', [])
+        .factory('SirTrevorFactory', function() {
+            return SirTrevor;
+        })
+        .provider('SirTrevorOptions', function() {
+            var options = {
+                    blockTypes: ["Image", "Video"],
+                    transform: {
+                        get: function(block) {
+                            return {
+                                type: block.blockStorage.type,
+                                data: block.blockStorage.data
+                            };
+                        },
+                        set: function(block) {
+                            return {
+                                type: block.type,
+                                data: block.data
+                            };
+                        }
+                    }
+                };
+            this.$get = function() {
+                return options;
+            }
+            this.$extend = function(opts) {
+                _.extend(options, opts);
+            }
+            this.$set = function(opts) {
+                options = opts;
+            }
+        })
+        .directive('sirtrevor', ['SirTrevorFactory', 'SirTrevorOptions', function(SirTrevor, options) {
+            var directive = {
+                    scope: {
+                        'blockTypes': '=',
+                        'defaultType': '=',
+                        'required': '=',
+                        'blockTypeLimits': '=',
+                        'language': '=',
+                        'debug': '=',
+                        'model': '=ngModel',
+                        'editor': '=ngEditor',
+                        'transform': '=ngEditorTransform'
+                    },
+                    template: function(element, attr) {
+                        var str = '<textarea class="sir-trevor" name="content"></textarea>';
+                        // sir trevor needs a parent `form` tag.
+                        if (!element.parent('form').length) {
+                            str = '<form>' + str + '</form>';
+                        }
+                        return str;
+                    },
+                    link: function (scope, element, attrs) {
+                        var opts = _.clone(options);
+                        _.each(directive.scope, function(key) {
+                            opts[key] = _.isEmpty(scope[key]) ? opts[key] : scope[key];
+                        });
+                        opts.el = element.find('textarea');
+                        scope.editor = new SirTrevor.Editor(opts);
+                        scope.editor.get = function() {
+                            var list = [];
+                            _.each(scope.editor.blocks, function(block) {
+                                scope.editor.saveBlockStateToStore(block);
+                                list.push(opts.transform.get(block));
+                            });
+                            return list;
+                        };
+                        scope.editor.set = function(list) {
+                            var item;
+                            _.each(list, function(block) {
+                                item = opts.transform.set(block);
+                                scope.editor.createBlock(item.type, item.data);
+                            });
+                        }
+                        scope.$watchCollection('editor.blocks', function(blocks) {
+                            var list = [];
+                            _.each(blocks, function(block) {
+                                list.push(scope.editor.get(block));
+                            });
+                            scope.model = list;
+                        });
+                    }
+                };
+            return directive;
+        }]);
+})();
