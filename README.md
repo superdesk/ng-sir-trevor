@@ -29,3 +29,35 @@ Now add ng-sir-trevor script and dependency to your index.html page
 <script type="text/javascript" src="bower_components/ng-sir-trevor-js/dist/ng-sir-trevor.min.js"></script>
 
 ``` 
+
+For requirejs configuration
+
+```
+require.config({
+    paths: {
+        'jquery': 'bower_components/jquery/dist/jquery',
+        'underscore': 'bower_components/underscore/underscore',
+        'angular': 'bower_components/angular/angular',
+        'eventable': 'bower_components/Eventable/eventable',
+        'sir-trevor': 'bower_components/sir-trevor/sir-trevor',
+        'ng-sir-trevor': 'bower_components/ng-sir-trevor/dist/ng-sir-trevor',
+    },
+    shim: {
+        jquery: {exports: 'jQuery'},
+
+        angular: {
+            deps: ['jquery'],
+            exports: 'angular'
+        },
+
+        'sir-trevor': {
+            deps: ['jquery', 'eventable', 'lodash'],
+            exports: 'SirTrevor'
+        },
+
+        'ng-sir-trevor': {
+            deps: ['sir-trevor', 'angular']
+        }
+    }
+});
+```
