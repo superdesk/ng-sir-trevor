@@ -63,8 +63,11 @@
                     },
                     link: function (scope, element, attrs) {
                         var opts = _.clone(options);
-                        _.each(directive.scope, function(key) {
-                            opts[key] = _.isEmpty(scope[key]) ? opts[key] : scope[key];
+                        // overwrite provider options with element parameters
+                        _.each(directive.scope, function(value, key) {
+                            if (!_.isEmpty(scope[key])) {
+                                opts[key] = scope[key];
+                            }
                         });
                         opts.el = element.find('textarea');
                         scope.editor = new SirTrevor.Editor(opts);
