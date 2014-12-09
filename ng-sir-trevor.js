@@ -39,20 +39,8 @@
                 options = opts;
             };
         })
-        .directive('sirTrevor', ['SirTrevor', 'SirTrevorOptions', function(SirTrevor, options) {
+        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', '$parse', function(SirTrevor, options, $parse) {
             var directive = {
-                    scope: {
-                        'blockTypes': '=',
-                        'defaultType': '=',
-                        'required': '=',
-                        'blockTypeLimits': '=',
-                        'language': '=',
-                        'debug': '=',
-                        // @TODO: investigate how to pass ng-model.
-                        // 'model': '=ngModel',
-                        'editor': '=ngEditor',
-                        'transform': '=ngEditorTransform'
-                    },
                     template: function(element, attr) {
                         var str = '<textarea class="sir-trevor" name="content"></textarea>';
                         // sir trevor needs a parent `form` tag.
@@ -63,10 +51,10 @@
                     },
                     link: function (scope, element, attrs) {
                         var opts = _.clone(options);
-                        // overwrite provider options with element parameters
-                        _.each(directive.scope, function(value, key) {
-                            if (!_.isEmpty(scope[key])) {
-                                opts[key] = scope[key];
+                        // get and eval all the directive paramters starting by 'st-'
+                        _.each(attrs, function(value, key) {
+                            if (key.indexOf('st') === 0) {
+                                opts[key[2].toLowerCase() + key.slice(3)] = scope.$eval(value);
                             }
                         });
                         opts.el = element.find('textarea');
