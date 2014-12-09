@@ -39,7 +39,7 @@
                 options = opts;
             }
         })
-        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', function(SirTrevor, options) {
+        .directive('sirTrevor', ['SirTrevor', 'SirTrevorOptions', function(SirTrevor, options) {
             var directive = {
                     scope: {
                         'blockTypes': '=',
