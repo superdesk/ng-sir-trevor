@@ -1,0 +1,22 @@
+{
+  "name": "ng-sir-trevor",
+  "description": "Creates Sir Trevor Angular modules and directive, to work better with sir in ng enviroment".,
+  "version": "1.0.0",
+  "homepage": "https://github.com/nistormihai/ng-sir-trevor",
+  "authors": [
+    "Nistor Mihai <Mihai.Nistor@sourcefabric.org>"
+  ],
+  "keywords": ["sir-trevor", "trevor", "angular", "angularjs", "ng-sir-trevor"],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.5",
+    "sir-trevor": "~0.3.2"
+  }
+}
