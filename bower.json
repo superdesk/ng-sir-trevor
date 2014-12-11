@@ -1,10 +1,14 @@
 {
   "name": "ng-sir-trevor",
-  "version": "0.0.0",
-  "homepage": "https://github.com/nistormihai/ng-sir-trevor",
+  "description": "Sir Trevor Angular services and directive, to work better with sir in ng enviroment",
+  "version": "1.0.0",
+  "homepage": "https://github.com/superdesk/ng-sir-trevor",
   "authors": [
-    "Nistor Mihai <Mihai.Nistor@sourcefabric.org>"
+    "Nistor Mihai <Mihai.Nistor@sourcefabric.org>",
+    "Vlad Nicoara <Vlad.Nicoara@sourcefabric.org>",
+    "Edouard Richard <edouard.richard@sourcefabric.org>"
   ],
+  "keywords": ["sir-trevor", "trevor", "angular", "angularjs", "ng-sir-trevor"],
   "license": "MIT",
   "ignore": [
     "**/.*",

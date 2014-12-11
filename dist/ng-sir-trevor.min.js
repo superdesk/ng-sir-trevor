@@ -4,16 +4,16 @@
     .module('SirTrevor', [])
         .provider('SirTrevor', function() {
             this.$get = function() {
-                return SirTrevor;
-            }
-            this.Blocks = SirTrevor.Blocks;
-            this.Block = SirTrevor.Block;
-            this.Formatters = SirTrevor.Formatters;
-            this.Formatter = SirTrevor.Formatter;
+                return window.SirTrevor;
+            };
+            this.Blocks = window.SirTrevor.Blocks;
+            this.Block = window.SirTrevor.Block;
+            this.Formatters = window.SirTrevor.Formatters;
+            this.Formatter = window.SirTrevor.Formatter;
         })
         .provider('SirTrevorOptions', function() {
             var options = {
-                    blockTypes: ["Text"],
+                    blockTypes: ['Text'],
                     transform: {
                         get: function(block) {
                             return {
@@ -31,28 +31,16 @@
                 };
             this.$get = function() {
                 return options;
-            }
+            };
             this.$extend = function(opts) {
                 _.extend(options, opts);
-            }
+            };
             this.$set = function(opts) {
                 options = opts;
-            }
+            };
         })
-        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', function(SirTrevor, options) {
+        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', '$parse', function(SirTrevor, options, $parse) {
             var directive = {
-                    scope: {
-                        'blockTypes': '=',
-                        'defaultType': '=',
-                        'required': '=',
-                        'blockTypeLimits': '=',
-                        'language': '=',
-                        'debug': '=',
-                        // @TODO: investigate how to pass ng-model.
-                        // 'model': '=ngModel',
-                        'editor': '=ngEditor',
-                        'transform': '=ngEditorTransform'
-                    },
                     template: function(element, attr) {
                         var str = '<textarea class="sir-trevor" name="content"></textarea>';
                         // sir trevor needs a parent `form` tag.
@@ -63,8 +51,11 @@
                     },
                     link: function (scope, element, attrs) {
                         var opts = _.clone(options);
-                        _.each(directive.scope, function(key) {
-                            opts[key] = _.isEmpty(scope[key]) ? opts[key] : scope[key];
+                        // get and eval all the directive paramters starting by 'st-'
+                        _.each(attrs, function(value, key) {
+                            if (key.indexOf('st') === 0) {
+                                opts[key[2].toLowerCase() + key.slice(3)] = scope.$eval(value);
+                            }
                         });
                         opts.el = element.find('textarea');
                         scope.editor = new SirTrevor.Editor(opts);
@@ -82,11 +73,11 @@
                                 item = opts.transform.set(block);
                                 scope.editor.createBlock(item.type, item.data);
                             });
-                        }
+                        };
 
                         scope.editor.clear = function() {
                             scope.editor.dataStore.data = [];
-                        }
+                        };
                         // @TODO: investigate how to better `digest` out of $scope  variables.
                         // scope.$watchCollection('editor.blocks', function(blocks) {
                         //     var list = [];

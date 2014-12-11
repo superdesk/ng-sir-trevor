@@ -1,6 +1,6 @@
 ng-sir-trevor
 =============
-Creates Sir Trevor Angular modules and directive,
+Sir Trevor Angular services and directive,
 to work better with sir in ng enviroment.
 
 
