@@ -21,6 +21,7 @@
             this.Formatters = window.SirTrevor.Formatters;
             this.Formatter = window.SirTrevor.Formatter;
             this.Locales = window.SirTrevor.Locales;
+            this.DEFAULTS = window.SirTrevor.DEFAULTS;
         })
         .provider('SirTrevorOptions', function() {
             var options = {
