@@ -20,6 +20,7 @@
             this.Block = window.SirTrevor.Block;
             this.Formatters = window.SirTrevor.Formatters;
             this.Formatter = window.SirTrevor.Formatter;
+            this.Locales = window.SirTrevor.Locales;
         })
         .provider('SirTrevorOptions', function() {
             var options = {
