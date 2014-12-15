@@ -20,6 +20,8 @@
             this.Block = window.SirTrevor.Block;
             this.Formatters = window.SirTrevor.Formatters;
             this.Formatter = window.SirTrevor.Formatter;
+            this.Locales = window.SirTrevor.Locales;
+            this.DEFAULTS = window.SirTrevor.DEFAULTS;
         })
         .provider('SirTrevorOptions', function() {
             var options = {
@@ -49,7 +51,7 @@
                 options = opts;
             };
         })
-        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', '$parse', function(SirTrevor, options, $parse) {
+        .directive('ngSirTrevor', ['SirTrevor', 'SirTrevorOptions', function(SirTrevor, options) {
             var directive = {
                     template: function(element, attr) {
                         var str = '<textarea class="sir-trevor" name="content"></textarea>';
@@ -59,14 +61,13 @@
                         }
                         return str;
                     },
+                    scope: {
+                        'editor': '=stModel',
+                        'params': '=stParams'
+                    },
                     link: function (scope, element, attrs) {
                         var opts = _.clone(options);
-                        // get and eval all the directive paramters starting by 'st-'
-                        _.each(attrs, function(value, key) {
-                            if (key.indexOf('st') === 0) {
-                                opts[key[2].toLowerCase() + key.slice(3)] = scope.$eval(value);
-                            }
-                        });
+                        _.extend(opts, scope.params);
                         opts.el = element.find('textarea');
                         scope.editor = new SirTrevor.Editor(opts);
                         scope.editor.get = function() {
