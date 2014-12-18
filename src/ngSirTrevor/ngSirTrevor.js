@@ -76,6 +76,9 @@ angular
                 };
 
                 scope.editor.clear = function() {
+                    _.each(scope.editor.blocks, function(block) {
+                        block.remove();
+                    });
                     scope.editor.dataStore.data = [];
                 };
                 // @TODO: investigate how to better `digest` out of $scope  variables.
