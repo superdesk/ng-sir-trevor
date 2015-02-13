@@ -61,6 +61,10 @@ angular
                 scope.editor = new SirTrevor.Editor(opts);
                 scope.editor.get = function() {
                     var list = [];
+                    // sort blocks by index.
+                    scope.editor.blocks.sort(function(a, b) {
+                        return (a.$el.index() - b.$el.index());
+                    });
                     _.each(scope.editor.blocks, function(block) {
                         scope.editor.saveBlockStateToStore(block);
                         list.push(opts.transform.get(block));
