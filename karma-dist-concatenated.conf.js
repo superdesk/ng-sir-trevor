@@ -27,11 +27,11 @@ module.exports = function(config) {
       'bower/angular/angular.js',
       'bower/angular-mocks/angular-mocks.js',
       'dist/ng-sir-trevor.js',
+      'test/support/**/*.js',
       'test/unit/**/*.js',
       'bower/jquery/jquery.js',
       'bower/Eventable/eventable.js',
-      'bower/underscore/underscore.js',
-      'bower/sir-trevor/sir-trevor.js'
+      'bower/sir-trevor-js/sir-trevor.js'
     ],
 
 
