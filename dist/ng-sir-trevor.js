@@ -78,7 +78,7 @@ angular
                     scope.editor.blocks.sort(function(a, b) {
                         return (a.$el.index() - b.$el.index());
                     });
-                    angular.each(scope.editor.blocks, function(block) {
+                    angular.forEach(scope.editor.blocks, function(block) {
                         scope.editor.saveBlockStateToStore(block);
                         list.push(opts.transform.get(block));
                     });
@@ -86,14 +86,14 @@ angular
                 };
                 scope.editor.set = function(list) {
                     var item;
-                    angular.each(list, function(block) {
+                    angular.forEach(list, function(block) {
                         item = opts.transform.set(block);
                         scope.editor.createBlock(item.type, item.data);
                     });
                 };
 
                 scope.editor.clear = function() {
-                    angular.each(scope.editor.blocks, function(block) {
+                    angular.forEach(scope.editor.blocks, function(block) {
                         block.remove();
                     });
                     scope.editor.dataStore.data = [];
