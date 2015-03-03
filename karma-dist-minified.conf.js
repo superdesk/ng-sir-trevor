@@ -31,6 +31,7 @@ module.exports = function(config) {
       'test/unit/**/*.js',
       'bower/jquery/jquery.js',
       'bower/Eventable/eventable.js',
+      'bower/underscore/underscore.js',
       'bower/sir-trevor-js/sir-trevor.js'
     ],
 
