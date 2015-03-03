@@ -18,11 +18,11 @@
     "**/.*"
   ],
   "dependencies": {
-    "angular": "~1.2.21",
-    "sir-trevor": "~0.3.2"
+    "angular": "~1.3.14",
+    "sir-trevor-js": "~0.4.3"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.21",
-    "angular-scenario": "~1.2.21"
+    "angular-mocks": "~1.3.14",
+    "angular-scenario": "~1.3.14"
   }
 }

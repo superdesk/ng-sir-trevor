@@ -34,7 +34,7 @@ angular
             return options;
         };
         this.$extend = function(opts) {
-            _.extend(options, opts);
+            angular.extend(options, opts);
         };
         this.$set = function(opts) {
             options = opts;
@@ -55,13 +55,17 @@ angular
                 'params': '=stParams'
             },
             link: function (scope, element, attrs) {
-                var opts = _.clone(options);
-                _.extend(opts, scope.params);
-                opts.el = element.find('textarea');
+                var opts = angular.copy(options);
+                angular.extend(opts, scope.params);
+                opts.el = $(element.find('textarea'));
                 scope.editor = new SirTrevor.Editor(opts);
                 scope.editor.get = function() {
                     var list = [];
-                    _.each(scope.editor.blocks, function(block) {
+                    // sort blocks by index.
+                    scope.editor.blocks.sort(function(a, b) {
+                        return (a.$el.index() - b.$el.index());
+                    });
+                    angular.each(scope.editor.blocks, function(block) {
                         scope.editor.saveBlockStateToStore(block);
                         list.push(opts.transform.get(block));
                     });
@@ -69,14 +73,14 @@ angular
                 };
                 scope.editor.set = function(list) {
                     var item;
-                    _.each(list, function(block) {
+                    angular.each(list, function(block) {
                         item = opts.transform.set(block);
                         scope.editor.createBlock(item.type, item.data);
                     });
                 };
 
                 scope.editor.clear = function() {
-                    _.each(scope.editor.blocks, function(block) {
+                    angular.each(scope.editor.blocks, function(block) {
                         block.remove();
                     });
                     scope.editor.dataStore.data = [];
