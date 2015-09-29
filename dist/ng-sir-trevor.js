@@ -23,6 +23,8 @@ angular
         this.Formatters = window.SirTrevor.Formatters;
         this.Formatter = window.SirTrevor.Formatter;
         this.Locales = window.SirTrevor.Locales;
+        this.FloatingBlockControls = window.SirTrevor.FloatingBlockControls;
+        this.SimpleBlock = window.SirTrevor.SimpleBlock;
         this.DEFAULTS = window.SirTrevor.DEFAULTS;
     })
     .provider('SirTrevorOptions', function() {
